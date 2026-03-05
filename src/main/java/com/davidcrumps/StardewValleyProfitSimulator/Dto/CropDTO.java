@@ -11,6 +11,7 @@ public class CropDTO {
     private int seedCost;
     private int seedSellPrice;
     private int growTime;
+    private int cropSellPrice;
     private int regrowthTime;
     private int cropsPerHarvest;
     private List<SeasonDTO> seasons;
