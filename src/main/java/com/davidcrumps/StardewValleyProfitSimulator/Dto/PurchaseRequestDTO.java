@@ -6,4 +6,6 @@ import lombok.Data;
 public class PurchaseRequestDTO {
     long cropId;
     int quantity;
+    int fertilizer;
+    int farmingLevel;
 }
