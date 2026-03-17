@@ -9,6 +9,8 @@ import com.davidcrumps.StardewValleyProfitSimulator.mappers.CropMapper;
 import com.davidcrumps.StardewValleyProfitSimulator.model.Crop;
 import com.davidcrumps.StardewValleyProfitSimulator.repository.CropRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 
@@ -25,7 +27,7 @@ public class CropService {
     }
 
     public CropDTO getCropById(Long id) {
-        Crop crop = repository.findByIdWithEagerSeason(id).orElse(null);
+        Crop crop = repository.findByIdWithEagerSeason(id).orElseThrow(() -> new EntityNotFoundException("Crop not found with id "+ id));
         return mapper.toCropDto(crop);
     }
 

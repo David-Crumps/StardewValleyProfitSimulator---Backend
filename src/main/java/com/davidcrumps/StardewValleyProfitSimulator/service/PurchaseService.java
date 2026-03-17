@@ -10,6 +10,7 @@ import com.davidcrumps.StardewValleyProfitSimulator.model.Purchase;
 import com.davidcrumps.StardewValleyProfitSimulator.repository.CropRepository;
 import com.davidcrumps.StardewValleyProfitSimulator.repository.PurchaseRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -20,8 +21,7 @@ public class PurchaseService {
     private final PurchaseMapper mapper;
 
     public PurchaseResponseDTO addProduct(PurchaseRequestDTO request) { 
-        //This needs better checking, must throw an exception that returns an HTTP status
-        Crop crop = cropRepository.findByIdWithEagerSeason(request.getCropId()).orElse(null);
+        Crop crop = cropRepository.findByIdWithEagerSeason(request.getCropId()).orElseThrow(() -> new EntityNotFoundException("Crop not found with id " + request.getCropId()));
         Purchase purchase = Purchase.builder().crop(crop).totalCost(request.getQuantity()*crop.getSeedCost()).build();
         purchaseRepository.save(purchase);
         return mapper.toDto(purchase);
