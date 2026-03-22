@@ -1,11 +1,23 @@
 package com.davidcrumps.StardewValleyProfitSimulator.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import java.time.Instant;
+import java.util.List;
 
-@Data
-@AllArgsConstructor
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
 public class ErrorMessageDTO {
     private String error;
-    private String message;
+    private List<String> messages;
+    private String path;
+    private Instant timestamp;
+
+    public ErrorMessageDTO(String error, List<String> messages, String path) {
+        this.error = error;
+        this.messages = messages;
+        this.path = path;
+        this.timestamp = Instant.now();
+    }
 }
