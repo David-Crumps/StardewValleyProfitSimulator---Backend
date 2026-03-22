@@ -11,6 +11,7 @@ import com.davidcrumps.StardewValleyProfitSimulator.Dto.PurchaseRequestDTO;
 import com.davidcrumps.StardewValleyProfitSimulator.Dto.PurchaseResponseDTO;
 import com.davidcrumps.StardewValleyProfitSimulator.service.PurchaseService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -20,7 +21,7 @@ public class PurchaseController {
     private final PurchaseService service;
 
     @PostMapping("/")
-    public ResponseEntity<PurchaseResponseDTO> addPurchase(@RequestBody PurchaseRequestDTO request) {
+    public ResponseEntity<PurchaseResponseDTO> addPurchase(@Valid @RequestBody PurchaseRequestDTO request) {
         return new ResponseEntity<>(service.addProduct(request), HttpStatus.CREATED);
     }
 
