@@ -30,11 +30,7 @@ public class CropController {
     @GetMapping("/{id}")
     public ResponseEntity<CropDTO> getCropById(@PathVariable Long id) {
         CropDTO cropDto = service.getCropById(id);
-        if (cropDto != null) {
-            return new ResponseEntity<>(cropDto, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(cropDto, HttpStatus.OK);
     }
 
 }
