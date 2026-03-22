@@ -27,7 +27,8 @@ public class PurchaseService {
 
     public PurchaseResponseDTO addProduct(PurchaseRequestDTO request) { 
         Crop crop = cropRepository.findByIdWithEagerSeason(request.getCropId()).orElseThrow(() -> new EntityNotFoundException("Crop not found with id " + request.getCropId()));
-
+        System.out.println("Farming Level: " +request.getFarmingLevel());
+        System.out.println("Fertilizer Level: " +request.getFertilizer());
         CropQualityDTO numByQual = calculateQuality(request.getQuantity(), request.getFertilizer(), request.getFarmingLevel());
         System.out.println("GOLD: "+ numByQual.getGold());
         System.out.println("SILVER: "+ numByQual.getSilver());
@@ -38,6 +39,9 @@ public class PurchaseService {
         return mapper.toDto(purchase);
     }
 
+
+    //This needs to check whether the quantity fertilizer and farming level are valid amounts, that is quantity should be  > 0 etc a quantity of -1 would be disastrous.
+    //This shold be checked in the addProduct function when getting the request.
     private CropQualityDTO calculateQuality(int quantity, int fertilizer, int farmingLevel) {
         double goldChanceRaw = (0.2 * (farmingLevel/10.0)) + (0.2 * fertilizer * ((farmingLevel+2)/12.0)) + 0.01;
         BigDecimal goldChanceBD = BigDecimal.valueOf(goldChanceRaw).setScale(2, RoundingMode.HALF_UP);
@@ -68,10 +72,13 @@ public class PurchaseService {
 }
 
 // For a given crop to determine its profits we need to know that following ->
-//if the person marks the plant to regrow (for single harvest crops this means repurchasing)
-//number of harvests
-//get fertilizer value
+//if the person marks the plant to regrow (for single harvest crops this means repurchasing) -> update DTO
+
+//number of harvests -> (my formula from python is best!) -> determine after intial growth period how many days are left, then with that determine how many regrows can occur in that time and then add 1 to that, to account for intial growth period
+// 
+
+//get fertilizer value (create a single fertilizer table, each fertilizer holds a quality value (0 - 3), and a speed multiplier (1.0, 1.1, 1.25, 1.33))
 //get farming level
-//determine the quality of crops given the amount purchased (not amount gained from harvesting, since crops like blueberries additional drops are ALWAYS normal)
+//determine the quality of crops given the amount purchased (not amount gained from harvesting, since crops like blueberries additional drops are ALWAYS normal) [DONE]
 //determine cost
 //determine estimated profit
