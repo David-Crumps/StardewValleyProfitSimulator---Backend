@@ -39,9 +39,6 @@ public class PurchaseService {
         return mapper.toDto(purchase);
     }
 
-
-    //This needs to check whether the quantity fertilizer and farming level are valid amounts, that is quantity should be  > 0 etc a quantity of -1 would be disastrous.
-    //This shold be checked in the addProduct function when getting the request.
     private CropQualityDTO calculateQuality(int quantity, int fertilizer, int farmingLevel) {
         double goldChanceRaw = (0.2 * (farmingLevel/10.0)) + (0.2 * fertilizer * ((farmingLevel+2)/12.0)) + 0.01;
         BigDecimal goldChanceBD = BigDecimal.valueOf(goldChanceRaw).setScale(2, RoundingMode.HALF_UP);
