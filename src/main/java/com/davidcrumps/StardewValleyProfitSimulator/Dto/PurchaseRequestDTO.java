@@ -1,5 +1,7 @@
 package com.davidcrumps.StardewValleyProfitSimulator.Dto;
 
+import com.davidcrumps.StardewValleyProfitSimulator.enums.SeasonEnum;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -21,4 +23,12 @@ public class PurchaseRequestDTO {
     @Min(value = 0, message = "Cannot be negative")
     @Max(value = 10, message = "Cannot exceed 10")
     private Integer farmingLevel;
+
+    @NotNull(message = "No value found")
+    @Min(value = 1, message = "First day of the season is 1")
+    @Max(value = 28, message = "Last day of the season is 28")
+    private Integer dayPlanted;
+
+    @NotNull(message = "No value found")
+    private SeasonEnum seasonPlanted;
 }
