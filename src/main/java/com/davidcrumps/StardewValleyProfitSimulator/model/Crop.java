@@ -1,13 +1,12 @@
 package com.davidcrumps.StardewValleyProfitSimulator.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OrderBy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +33,8 @@ public class Crop {
         joinColumns = @JoinColumn(name = "crop_id"),
         inverseJoinColumns = @JoinColumn(name = "season_id")
     )
-    private Set<Season> seasons = new HashSet<>();
+    @OrderBy("id ASC")
+    private List<Season> seasons;
 
     private Integer cropSellPrice;
 
