@@ -3,7 +3,11 @@ package com.davidcrumps.StardewValleyProfitSimulator.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.davidcrumps.StardewValleyProfitSimulator.enums.SeasonEnum;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
@@ -24,4 +28,7 @@ public class Season {
 
     @ManyToMany(mappedBy = "seasons")
     private Set<Crop> crops = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    private SeasonEnum seasonEnum;
 }
