@@ -1,4 +1,4 @@
-INSERT INTO season (id, name) values (1, 'Spring'), (2, 'Summer'), (3, 'Fall'), (4, 'Winter');
+INSERT INTO season (id, name, season_enum) values (1, 'Spring', 'SPRING'), (2, 'Summer', 'SUMMER'), (3, 'Fall', 'FALL'), (4, 'Winter', 'WINTER');
 
 INSERT INTO crop (id, name, seed_cost, seed_sell_price, grow_time, regrowth_time, crops_per_harvest, crop_sell_price, image_url) values
 (1, 'Blue Jazz', 30, 15, 7, 0, 1, 50, '/images/crops/Blue_Jazz.png'),
