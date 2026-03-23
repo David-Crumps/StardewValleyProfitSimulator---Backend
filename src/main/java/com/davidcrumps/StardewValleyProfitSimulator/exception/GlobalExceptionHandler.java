@@ -26,6 +26,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(InvalidSeasonException.class) 
+    public ResponseEntity<ErrorMessageDTO> handleInvalidSeason(InvalidSeasonException ex, WebRequest request) {
+        ErrorMessageDTO error = new ErrorMessageDTO("Invalid Season", List.of(ex.getMessage()), request.getDescription(false));
+        return ResponseEntity.badRequest().body(error);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         List<String> messages = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getField()+ ": " + error.getDefaultMessage()).toList();
