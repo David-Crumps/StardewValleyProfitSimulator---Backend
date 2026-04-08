@@ -81,7 +81,7 @@ public class PurchaseService {
     private int numHarvests(Crop crop, List<Season> seasons, int dayPlanted, SeasonEnum seasonPlanted) {
         List<SeasonEnum> validSeasons = crop.getSeasons().stream().map(Season::getSeasonEnum).sorted(Comparator.comparingInt(SeasonEnum::getOrder)).toList();
         int startIndex = validSeasons.indexOf(seasonPlanted);
-
+        
         int days = 0, remainderDays = 0, total = 0, daysInSeason = 28;
         for (int i = startIndex; i < validSeasons.size(); i++) {
             if (remainderDays > 0) days = daysInSeason - remainderDays;
@@ -94,24 +94,14 @@ public class PurchaseService {
                 double num_harvests = 0;
                 if (crop.getRegrowthTime() > 0) {
                     num_harvests = (double) days/crop.getRegrowthTime();
-                    remainderDays = Math.max(1, (int)(crop.getRegrowthTime()*(1-(num_harvests%1)))); //the remainder should always be atleast 1.
+                    remainderDays = Math.max(1, (int)(crop.getRegrowthTime()*(1-(num_harvests%1)))); //the remainder should always be atleast 1, if the remainder is less than 1 then the first harvest would happen on a day that doesn't occur (day 0)
                 } else {
                     num_harvests = (double) days/crop.getGrowTime();
                 }
                 total += ((int) num_harvests + 1);
             }
         }
-        System.out.println(total);
+        System.out.println("TOTAL HARVESTS: " + total);
         return 5;
     }
-
-
 }
-
-// For a given crop to determine its profits we need to know that following ->
-//if the person marks the plant to regrow (for single harvest crops this means repurchasing) -> update DTO -> need a boolean setToRegrow;
-
-
-//get fertilizer value (create a single fertilizer table, each fertilizer holds a quality value (0 - 3), and a speed multiplier (1.0, 1.1, 1.25, 1.33))
-//determine cost
-//determine estimated profit
