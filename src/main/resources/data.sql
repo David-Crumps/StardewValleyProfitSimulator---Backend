@@ -1,5 +1,14 @@
 INSERT INTO season (id, name, season_enum) values (1, 'Spring', 'SPRING'), (2, 'Summer', 'SUMMER'), (3, 'Fall', 'FALL'), (4, 'Winter', 'WINTER');
 
+INSERT INTO fertilizer(id, name, speed_multiplier, quality_multiplier) values 
+(1, 'No Fertilizer', 1, 0), 
+(2, 'Basic Fertilizer', 1, 1), 
+(3, 'Quality Fertilizer', 1, 2), 
+(4, 'Deluxe Fertilizer', 1, 3),
+(5, 'Speed-Gro', 1.1, 0),
+(6, 'Deluxe Speed-Gro', 1.25, 0),
+(7, 'Hyper Speed-Gro', 1.33, 0);
+
 INSERT INTO crop (id, name, seed_cost, seed_sell_price, grow_time, regrowth_time, crops_per_harvest, crop_sell_price, image_url) values
 (1, 'Blue Jazz', 30, 15, 7, 0, 1, 50, '/images/crops/Blue_Jazz.png'),
 (2, 'Cauliflower', 80, 40, 12, 0, 1, 175, '/images/crops/Cauliflower.png'),
